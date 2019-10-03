@@ -30,8 +30,41 @@ const insert = data => {
     `
   );
 };
+// database query to list all the entries
+const searchAll = () => {
+  return database.query(
+    SQL`
+    SELECT * FROM persons 
+    `
+  );
+};
+
+// database query to search by name or by phone number
+const search = data => {
+  return database.query(
+    SQL`
+    SELECT * FROM persons WHERE first_name=${data} OR last_name=${data} OR telephone=${data}
+    `
+  );
+};
+
+// database query to update a specific entry
+
+const update = (id, data) => {
+  return database.query(
+    SQL`
+    UPDATE persons 
+    SET first_name = ${data.first_name},
+    last_name=${data.last_name},
+    telephone=${data.telephone}
+    WHERE id=${id}`
+  );
+};
 
 module.exports = {
   createTable,
-  insert
+  insert,
+  searchAll,
+  search,
+  update
 };
