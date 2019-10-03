@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
 const phonebook = require("./phonebook");
-app.use("/home", phonebook);
+app.use("/phonebook", phonebook);
 
 app.listen(PORT, () => {
   console.log(`listenning on port ${PORT}........`);

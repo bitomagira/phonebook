@@ -10,6 +10,9 @@ const client = new Pool({
   port: 5432
 });
 
-client.connect();
+client
+  .connect()
+  .then(() => console.log("Connected successfuly"))
+  .catch(e => console.log(e));
 
 module.exports = client;
