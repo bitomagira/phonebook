@@ -1,6 +1,8 @@
 "use strict";
 const database = require("../database");
 const SQL = require("pg-template-tag").default;
+
+// database query to create the persons table
 const createTable = () => {
   database.query(`
     CREATE TABLE IF NOT EXISTS persons
@@ -11,6 +13,8 @@ const createTable = () => {
         telephone VARCHAR(30) UNIQUE NOT NULL
     );`);
 };
+
+// database query to insert an entry in the persons table
 const insert = data => {
   return database.query(
     SQL`
@@ -26,6 +30,7 @@ const insert = data => {
     `
   );
 };
+
 module.exports = {
   createTable,
   insert
