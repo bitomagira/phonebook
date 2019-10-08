@@ -14,6 +14,41 @@ const createTable = () => {
     );`);
 };
 
+const populateDB = () => {
+  searchAll().then(data => {
+    if (data.rows.length === 0) {
+      const data = [
+        {
+          first_name: "steve",
+          last_name: "bitomagira",
+          telephone: "+11 11 111111"
+        },
+        {
+          first_name: "jiji",
+          last_name: "mutesi",
+          telephone: "+22 22 222222"
+        },
+        {
+          first_name: "nadege",
+          last_name: "izere",
+          telephone: "+33 33 333333"
+        },
+        {
+          first_name: "alida",
+          last_name: "uwizeye",
+          telephone: "+44 12 123456"
+        }
+      ];
+
+      data.map(entry => {
+        insert(entry);
+      });
+    } else {
+      return null;
+    }
+  });
+};
+
 // database query to insert an entry in the persons table
 const insert = data => {
   return database.query(
@@ -41,9 +76,10 @@ const searchAll = () => {
 
 // database query to search by name or by phone number
 const search = data => {
+  let val = "%".concat(data, "%");
   return database.query(
     SQL`
-    SELECT * FROM persons WHERE first_name=${data} OR last_name=${data} OR telephone=${data}
+    SELECT * FROM persons WHERE first_name LIKE ${val}  OR last_name LIKE ${val}OR telephone LIKE ${val}
     `
   );
 };
@@ -57,7 +93,7 @@ const update = (id, data) => {
     SET first_name = ${data.first_name},
     last_name=${data.last_name},
     telephone=${data.telephone}
-    WHERE id=${id}`
+    WHERE telephone=${id}`
   );
 };
 
@@ -66,5 +102,6 @@ module.exports = {
   insert,
   searchAll,
   search,
-  update
+  update,
+  populateDB
 };

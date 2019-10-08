@@ -7,6 +7,7 @@ const controller = {};
 // create the table persons in the database
 
 persons.createTable();
+persons.populateDB();
 
 // verify if the phone number is in the good format
 
@@ -50,7 +51,7 @@ controller.search = (req, res) => {
 // update a specific entry
 
 controller.update = (req, res) => {
-  const id = req.params.id;
+  const id = req.body.id;
   const data = req.body;
   persons
     .update(id, data)
