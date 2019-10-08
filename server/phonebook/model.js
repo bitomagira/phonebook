@@ -4,7 +4,6 @@ const SQL = require("pg-template-tag").default;
 
 // database query to create the persons table
 const createTable = async () => {
-  console.log("null");
   await database.query(`
     CREATE TABLE IF NOT EXISTS persons
     (
