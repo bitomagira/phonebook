@@ -9,7 +9,7 @@ To run this application on your computer, please follow these few steps:
 - clone the repository
 - go to the server folder and run npm i
 - run nodemon .\index.js
--got to the client folder and run npm i
+- got to the client folder and run npm i
 - run mpm start
 
  
