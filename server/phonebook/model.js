@@ -3,8 +3,9 @@ const database = require("../database");
 const SQL = require("pg-template-tag").default;
 
 // database query to create the persons table
-const createTable = () => {
-  database.query(`
+const createTable = async () => {
+  console.log("null");
+  await database.query(`
     CREATE TABLE IF NOT EXISTS persons
     (
         id SERIAL PRIMARY KEY NOT NULL,
@@ -14,8 +15,8 @@ const createTable = () => {
     );`);
 };
 
-const populateDB = () => {
-  searchAll().then(data => {
+const populateDB = async () => {
+  await searchAll().then(async data => {
     if (data.rows.length === 0) {
       const data = [
         {
@@ -40,7 +41,7 @@ const populateDB = () => {
         }
       ];
 
-      data.map(entry => {
+      await data.map(entry => {
         insert(entry);
       });
     } else {
@@ -50,8 +51,8 @@ const populateDB = () => {
 };
 
 // database query to insert an entry in the persons table
-const insert = data => {
-  return database.query(
+const insert = async data => {
+  return await database.query(
     SQL`
     INSERT INTO persons(
         first_name,
@@ -66,8 +67,8 @@ const insert = data => {
   );
 };
 // database query to list all the entries
-const searchAll = () => {
-  return database.query(
+const searchAll = async () => {
+  return await database.query(
     SQL`
     SELECT * FROM persons 
     `
@@ -75,9 +76,9 @@ const searchAll = () => {
 };
 
 // database query to search by name or by phone number
-const search = data => {
+const search = async data => {
   let val = "%".concat(data, "%");
-  return database.query(
+  return await database.query(
     SQL`
     SELECT * FROM persons WHERE first_name LIKE ${val}  OR last_name LIKE ${val}OR telephone LIKE ${val}
     `
@@ -86,8 +87,8 @@ const search = data => {
 
 // database query to update a specific entry
 
-const update = (id, data) => {
-  return database.query(
+const update = async (id, data) => {
+  return await database.query(
     SQL`
     UPDATE persons 
     SET first_name = ${data.first_name},
