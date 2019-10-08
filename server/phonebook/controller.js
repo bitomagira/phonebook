@@ -6,8 +6,12 @@ var Regex = require("regex");
 const controller = {};
 // create the table persons in the database
 
-persons.createTable();
-persons.populateDB();
+const tablePopulate = async()=>{
+await persons.createTable();
+await persons.populateDB();
+}
+
+tablePopulate();
 
 // verify if the phone number is in the good format
 
