@@ -9,9 +9,9 @@ router.get("/", controller.searchAll);
 router.post("/newentry", controller.createPerson);
 
 // route for searching by name or number
-router.get("/search", controller.search);
+router.post("/search", controller.search);
 
 // route to update an entry
-router.put("/update/:id", controller.update);
+router.put("/update/", controller.update);
 
 module.exports = router;
